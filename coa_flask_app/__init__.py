@@ -210,10 +210,10 @@ def insert_contribution():
     contribution.insert_contribution(request.form.items()[0][0])
     return jsonify({})
 
-@APP.route('/validationChecks')
+@APP.route('/correct')
 def totalCorrect(data_dict):
     """
-    These function are validation checks in order to catch any possible errors in the excel sheets uploaded
+    This function double checks that the total of the rows are correct
     """
     for r in range(0,data_dict.shape[0]):
         rowSeries = data_dict.iloc[r]
@@ -236,7 +236,11 @@ for sheetname in data_dict: #this traverses through the multiple sheets
      Total = totalCorrect(data_dict[sheetname])
      print (Total)
 
+@APP.route('/repetition')
 def repetitionOfItems(df):
+    """
+    This fucntion checks if items are repeated
+    """
     temp = df[["Material","Category","Item Name"]]
     return temp[temp.duplicated(keep=False)]
 for sheetname in data_dict: #this traverses through the multiple sheets
@@ -244,7 +248,11 @@ for sheetname in data_dict: #this traverses through the multiple sheets
     if repition.empty != True:
         print ("The following items are repeated in" ,(sheetname), ":",repition)
 
+@APP.route('/negative')
 def checkNegative(data):
+    """
+    This function checks if there is a negative number
+    """
     problems=[]
     for r in range (0, data.shape[0]):
         rowSeries = data.iloc[r]
@@ -260,7 +268,11 @@ for sheetname in data_dict:
         c=rc[1]
         print("A value", c, "in row", r, "in sheet", sheetname ,"is negative")
 
+@APP.route('/decimal')
 def checkDecimal(data_dict):
+    """
+    This function checks if there are any decimals
+    """
     decimal =[]
     for r in range (0, data_dict.shape[0]):
         rowSeries = data_dict.iloc[r]
