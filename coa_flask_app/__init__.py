@@ -209,3 +209,71 @@ def insert_contribution():
     """
     contribution.insert_contribution(request.form.items()[0][0])
     return jsonify({})
+
+@APP.route('/validationChecks')
+def totalCorrect(data_dict):
+    """
+    These function are validation checks in order to catch any possible errors in the excel sheets uploaded
+    """
+    for r in range(0,data_dict.shape[0]):
+        rowSeries = data_dict.iloc[r]
+        total = 0
+        print(rowSeries.values)
+        i=0
+        while i < len(rowSeries.values)-1:
+            if(np.isnan(rowSeries.values[i])):
+                total += 0
+            else:
+                total = total + rowSeries.values[i]
+            i+=1
+        print (total)
+        print(rowSeries.values[i])
+        if(rowSeries.values[i] != total):
+            print("ERROR: In row", r, "your total is incorrect!")
+        else:
+            print("Everything is all right!")
+for sheetname in data_dict: #this traverses through the multiple sheets
+     Total = totalCorrect(data_dict[sheetname])
+     print (Total)
+
+def repetitionOfItems(df):
+    temp = df[["Material","Category","Item Name"]]
+    return temp[temp.duplicated(keep=False)]
+for sheetname in data_dict: #this traverses through the multiple sheets
+    repition = repetitionOfItems(data_dict2[sheetname])
+    if repition.empty != True:
+        print ("The following items are repeated in" ,(sheetname), ":",repition)
+
+def checkNegative(data):
+    problems=[]
+    for r in range (0, data.shape[0]):
+        rowSeries = data.iloc[r]
+        for c in rowSeries.values:
+            if c < 0:
+                problems.append([r,c])
+    return problems
+
+for sheetname in data_dict:
+    these_problems=checkNegative(data_dict[sheetname])
+    for rc in these_problems:
+        r=rc[0]
+        c=rc[1]
+        print("A value", c, "in row", r, "in sheet", sheetname ,"is negative")
+
+def checkDecimal(data_dict):
+    decimal =[]
+    for r in range (0, data_dict.shape[0]):
+        rowSeries = data_dict.iloc[r]
+        for c in rowSeries.values:
+            if (pd.isnull(c) == False):
+                cFloat = c
+                if float(cFloat).is_integer() == False:
+                    decimal.append([r,cFloat])
+    return decimal
+
+for sheetname in data_dict:
+    these_decimal=checkDecimal(data_dict[sheetname])
+    for rcFloat in these_decimal:
+        r=rcFloat[0]
+        cFloat=rcFloat[1]
+        print("A value", cFloat, "in row", r+11, "in sheet", sheetname ,"is a decimal")
