@@ -11,9 +11,9 @@ from datetime import datetime
 from flask import jsonify, request, session, url_for, Flask
 from flask_cors import CORS
 
-from coa_flask_app import contribution, site
+from coa_flask_app import contribution, site, validation
 
-from validation import read_data_dict, make_data_dict2, totalCorrect,repetitionOfItems,checkNegative,checkDecimal,allValidationChecks
+#from validation import read_data_dict, make_data_dict2, totalCorrect,repetitionOfItems,checkNegative,checkDecimal,allValidationChecks
 
 
 APP = Flask(__name__)
@@ -211,29 +211,31 @@ def insert_contribution():
     contribution.insert_contribution(request.form.items()[0][0])
     return jsonify({})
 
-@APP.route('/allValidationChecks')
-def allValidationChecks(input_path):
+@APP.route('/allValidationChecks',methods = ['POST'])
+def allValidationChecks():
+    input_path = '/Users/nour/downloads/coa_template.xlsx'
+    # data_dict=validation.read_data_dict(input_path)
+    #
+    # data_dict2=validation.make_data_dict2(input_path)
 
-	data_dict=read_data_dict(input_path)
-
-	data_dict2=make_data_dict2(input_path)
-
-	for sheetname in data_dict: #this traverses through the multiple sheets
-		Total = totalCorrect(data_dict[sheetname])
-		print (Total)
-	for sheetname in data_dict: #this traverses through the multiple sheets
-		repetition = repetitionOfItems(data_dict2[sheetname])
-		if repetition.empty != True:
-			print ("The following items are repeated in" ,(sheetname), ":",repetition)
-	for sheetname in data_dict:
-		these_problems=checkNegative(data_dict[sheetname])
-		for rc in these_problems:
-			r=rc[0]
-			c=rc[1]
-			print("A value", c, "in row", r, "in sheet", sheetname ,"is negative")
-	for sheetname in data_dict:
-		these_decimal=checkDecimal(data_dict[sheetname])
-		for rcFloat in these_decimal:
-			r=rcFloat[0]
-			cFloat=rcFloat[1]
-			print("A value", cFloat, "in row", r+11, "in sheet", sheetname ,"is a decimal")
+    # for sheetname in data_dict: #this traverses through the multiple sheets
+    #     Total = validation.totalCorrect(data_dict[sheetname])
+    #     print ('total', Total)
+    # for sheetname in data_dict: #this traverses through the multiple sheets
+    #     repetition = validation.repetitionOfItems(data_dict2[sheetname])
+    #     if repetition.empty != True:
+    #         print ("The following items are repeated in" ,(sheetname), ":",repetition)
+    # for sheetname in data_dict:
+    #     these_problems=validation.checkNegative(data_dict[sheetname])
+    #     for rc in these_problems:
+    #         r=rc[0]
+    #         c=rc[1]
+    #         print("A value", c, "in row", r, "in sheet", sheetname ,"is negative")
+    # for sheetname in data_dict:
+    #     these_decimal=validation.checkDecimal(data_dict[sheetname])
+    #     for rcFloat in these_decimal:
+    #         r=rcFloat[0]
+    #         cFloat=rcFloat[1]
+    #         print("A value", cFloat, "in row", r+11, "in sheet", sheetname ,"is a decimal")
+    #return jsonify({'Repetition':repetition.empty, 'Negative': these_problems, 'Decimal': these_decimal})
+    return jsonify(validation.allValidationChecks(input_path))
