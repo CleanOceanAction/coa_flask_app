@@ -12,6 +12,8 @@ from flask import jsonify, request, session, url_for, Flask
 from flask_cors import CORS
 
 from coa_flask_app import contribution, site, validation
+import json
+from werkzeug.utils import secure_filename
 
 #from validation import read_data_dict, make_data_dict2, totalCorrect,repetitionOfItems,checkNegative,checkDecimal,allValidationChecks
 
@@ -213,29 +215,9 @@ def insert_contribution():
 
 @APP.route('/allValidationChecks',methods = ['POST'])
 def allValidationChecks():
-    input_path = '/Users/nour/downloads/coa_template.xlsx'
-    # data_dict=validation.read_data_dict(input_path)
-    #
-    # data_dict2=validation.make_data_dict2(input_path)
-
-    # for sheetname in data_dict: #this traverses through the multiple sheets
-    #     Total = validation.totalCorrect(data_dict[sheetname])
-    #     print ('total', Total)
-    # for sheetname in data_dict: #this traverses through the multiple sheets
-    #     repetition = validation.repetitionOfItems(data_dict2[sheetname])
-    #     if repetition.empty != True:
-    #         print ("The following items are repeated in" ,(sheetname), ":",repetition)
-    # for sheetname in data_dict:
-    #     these_problems=validation.checkNegative(data_dict[sheetname])
-    #     for rc in these_problems:
-    #         r=rc[0]
-    #         c=rc[1]
-    #         print("A value", c, "in row", r, "in sheet", sheetname ,"is negative")
-    # for sheetname in data_dict:
-    #     these_decimal=validation.checkDecimal(data_dict[sheetname])
-    #     for rcFloat in these_decimal:
-    #         r=rcFloat[0]
-    #         cFloat=rcFloat[1]
-    #         print("A value", cFloat, "in row", r+11, "in sheet", sheetname ,"is a decimal")
-    #return jsonify({'Repetition':repetition.empty, 'Negative': these_problems, 'Decimal': these_decimal})
+    data = request.files['file']
+    filename = secure_filename(data.filename)
+    input_path = '/'.join(['/tmp',filename])
+    print (data)
+    data.save(input_path)
     return jsonify(validation.allValidationChecks(input_path))
