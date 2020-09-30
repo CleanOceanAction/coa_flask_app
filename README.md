@@ -1,10 +1,12 @@
-# Backend of COA
+An Amazing Project
+
+# Backend of COA:
 
 [![Build Status](https://travis-ci.com/CleanOceanAction/coa_flask_app.svg?branch=master)](https://travis-ci.com/CleanOceanAction/coa_flask_app)
 
 The flask backend REST APIs for the COA website.
 
-## Getting Started
+## Getting Started:
 
 1. Install the dependencies
 
@@ -26,7 +28,7 @@ make run
 make prod-run
 ```
 
-## Running the Backend
+## Running the Backend:
 
 To test that the flask app is running and properly connected to the database,
 use the curl command.
@@ -39,7 +41,7 @@ curl localhost:5000/locations
 curl http://coa-flask-app-prod.us-east-1.elasticbeanstalk.com/locations
 ```
 
-## Inspecting the Database
+## Inspecting the Database:
 
 1. Install MySQL Workbench [here](https://dev.mysql.com/downloads/workbench/)
 2. In MySQL Workbench click on 'MySQL Connections +' to add
