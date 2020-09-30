@@ -9,8 +9,8 @@ The flask backend REST APIs for the COA website.
 1. Install the dependencies
 
 ```
-sudo apt install python3.7
-sudo python3.7 -m pip install pipenv
+sudo apt install python3.8
+sudo python3.8 -m pip install pipenv
 
 # Alternatively with docker
 sudo apt install docker
