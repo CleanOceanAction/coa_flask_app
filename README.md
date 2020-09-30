@@ -6,7 +6,7 @@ The flask backend REST APIs for the COA website.
 
 ## Getting Started
 
-1. Install the dependencies
+1. Install the dependencies if not already installed
 
 ```
 sudo apt install python3.7
