@@ -1,4 +1,4 @@
-# Backend of COA
+# Backend of COA Flsak App
 
 [![Build Status](https://travis-ci.com/CleanOceanAction/coa_flask_app.svg?branch=master)](https://travis-ci.com/CleanOceanAction/coa_flask_app)
 
