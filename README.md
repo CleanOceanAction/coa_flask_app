@@ -28,7 +28,7 @@ make prod-run
 
 ## Running the Backend
 
-To test that the flask app is running and properly connected to the database,
+To test that the flask app is running and is properly connected to the database,
 use the curl command.
 
 ```
