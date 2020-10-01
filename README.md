@@ -26,7 +26,7 @@ make run
 make prod-run
 ```
 
-## Running the Backend
+## Running_the_Backend
 
 To test that the flask app is running and properly connected to the database,
 use the curl command.
@@ -39,10 +39,10 @@ curl localhost:5000/locations
 curl http://coa-flask-app-prod.us-east-1.elasticbeanstalk.com/locations
 ```
 
-## Inspecting the Database
+## Inspecting_the_Database
 
-1. Install MySQL Workbench [here](https://dev.mysql.com/downloads/workbench/)
-2. In MySQL Workbench click on 'MySQL Connections +' to add
+1. Install "MySQL" Workbench [here](https://dev.mysql.com/downloads/workbench/)
+2. In MySQL Workbench click on 'MySQL_Connections +' to add
    a connection with AWS RDS.
 3. Enter the hostname, port, username, and password using the
    same credentials mentioned in the `CONTRIBUTING.md`.
