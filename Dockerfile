@@ -25,6 +25,9 @@ COPY deployment/uwsgi.ini /etc/uwsgi/
 COPY deployment/supervisord.ini /etc/supervisor.d/
 COPY . /app/
 
+RUN make check-fmt
+RUN make lint
+
 EXPOSE 80
 
 HEALTHCHECK CMD curl --fail http://localhost || exit 1

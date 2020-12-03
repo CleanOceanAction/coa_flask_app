@@ -4,30 +4,32 @@ SRC_FILES := $(shell find . -name "*.py")
 .PHONY: help
 help:
 	@echo "Usage:"
-	@echo "    help:                Prints this screen"
-	@echo "    install-deps:        Installs dependencies in the internal venv"
-	@echo "    format:              Formats the code"
-	@echo "    fmt:                 An alias for format"
-	@echo "    lint:                Lints the code"
-	@echo "    test:                Tests the code"
-	@echo "    run:                 Run the development version of the app"
-	@echo "    prod-build:          Build the production version of the app"
-	@echo "    prod-run:            Run the production version of the app"
-	@echo "    clean:               Clean out temporaries"
-	@echo "    clean-full:          Clean out temporaries and the internal venv"
+	@echo "    help:         Prints this screen"
+	@echo "    install-deps: Installs dependencies in the internal venv"
+	@echo "    check-fmt:    Checks the code for style issues"
+	@echo "    fmt:          Make the formatting changes directly to the project"
+	@echo "    lint:         Lints the code"
+	@echo "    test:         Tests the code"
+	@echo "    run:          Run the development version of the app"
+	@echo "    prod-build:   Build the production version of the app"
+	@echo "    prod-run:     Run the production version of the app"
+	@echo "    clean:        Clean out temporaries"
+	@echo "    clean-full:   Clean out temporaries and the internal venv"
 	@echo ""
 
 .PHONY: install-deps
 install-deps:
 	$(PYTHON) pipenv install --dev
 
-.PHONY: format
-format:
-	@echo "Auto Formatting"
-	@$(PYTHON) autopep8 -i $(SRC_FILES)
+.PHONY: check-fmt
+check-fmt:
+	@echo "Format Checking"
+	$(PYTHON) -m black --check .
 
 .PHONY: fmt
-fmt: format
+fmt:
+	@echo "Auto Formatting"
+	$(PYTHON) -m black .
 
 .PHONY: lint
 lint:

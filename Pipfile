@@ -4,11 +4,11 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+black = "*"
 mypy = "*"
 pylint = "*"
 pytest = "*"
 pytest-cov = "*"
-autopep8 = "*"
 
 [packages]
 flask = "*"

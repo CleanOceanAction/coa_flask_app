@@ -1,2 +1,5 @@
 [MESSAGES CONTROL]
-disable=fixme,too-many-arguments
+disable=c0330,c0326,too-many-arguments,too-few-public-methods,no-value-for-parameter
+
+[format]
+max-line-length = 88
