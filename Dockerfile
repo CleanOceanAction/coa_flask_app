@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.8-alpine
 
 RUN apk add --no-cache \
     make \
@@ -24,9 +24,6 @@ RUN pipenv install --system --deploy --ignore-pipfile
 COPY deployment/uwsgi.ini /etc/uwsgi/
 COPY deployment/supervisord.ini /etc/supervisor.d/
 COPY . /app/
-
-RUN make check-fmt
-RUN make lint
 
 EXPOSE 80
 

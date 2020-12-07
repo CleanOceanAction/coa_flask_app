@@ -26,7 +26,7 @@ def get(event_id: int) -> List[EventItem]:
                 event_id,
                 item_id,
                 quantity,
-                updated_by,
+                updated_by
             FROM coa_data.event_items AS cdei
             WHERE cdei.event_id = %s
             """
@@ -58,11 +58,9 @@ def add(event_id: int, item_id: int, quantity: int, updated_by: str) -> None:
         db_handle.execute(query, (event_id, item_id, quantity, updated_by))
 
 
-def update(record_id: int,
-           event_id: int,
-           item_id: int,
-           quantity: int,
-           updated_by: str) -> None:
+def update(
+    record_id: int, event_id: int, item_id: int, quantity: int, updated_by: str
+) -> None:
     """
     Updates an event item.
 
@@ -83,11 +81,7 @@ def update(record_id: int,
             WHERE record_id = %s
             """
     with Accessor() as db_handle:
-        db_handle.execute(query, (event_id,
-                                  item_id,
-                                  quantity,
-                                  updated_by,
-                                  record_id))
+        db_handle.execute(query, (event_id, item_id, quantity, updated_by, record_id))
 
 
 def remove(record_id: int) -> None:

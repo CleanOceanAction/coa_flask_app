@@ -1,5 +1,5 @@
 """
-A module handle the logic with the items table.
+A module handle the logic with the item table.
 """
 
 from typing import List, Tuple
@@ -23,7 +23,7 @@ def get() -> List[Item]:
                 material,
                 category,
                 item_name
-            FROM coa_data.items
+            FROM coa_data.item
             """
     with Accessor() as db_handle:
         db_handle.execute(query)
@@ -40,7 +40,7 @@ def add(material: str, category: str, item_name: str) -> None:
         item_name: The name of the item.
     """
     query = """
-            INSERT INTO coa_data.items(
+            INSERT INTO coa_data.item(
                 material,
                 category,
                 item_name
@@ -62,7 +62,7 @@ def update(item_id: int, material: str, category: str, item_name: str) -> None:
         item_name: The name of the item.
     """
     query = """
-            UPDATE coa_data.items
+            UPDATE coa_data.item
             SET
                 material = %s,
                 category = %s,
@@ -81,7 +81,7 @@ def remove(item_id: int) -> None:
         item_id: The ID of the item.
     """
     query = """
-            DELETE FROM coa_data.items
+            DELETE FROM coa_data.item
             WHERE item_id = %s
             """
     with Accessor() as db_handle:

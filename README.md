@@ -9,8 +9,8 @@ The flask backend REST APIs for the COA website.
 1. Install the dependencies
 
 ```
-sudo apt install python3.7
-sudo python3.7 -m pip install pipenv
+sudo apt install python3.8
+sudo python3.8 -m pip install pipenv
 
 # Alternatively with docker
 sudo apt install docker
@@ -33,10 +33,10 @@ use the curl command.
 
 ```
 # Local
-curl localhost:5000/locations
+curl localhost:5000/items
 
 # Prod
-curl http://coa-flask-app-prod.us-east-1.elasticbeanstalk.com/locations
+curl http://coa-flask-app-prod.us-east-1.elasticbeanstalk.com/items
 ```
 
 ## Inspecting the Database

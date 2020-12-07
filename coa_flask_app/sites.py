@@ -1,5 +1,5 @@
 """
-A module handle the logic with the sites table.
+A module handle the logic with the site table.
 """
 
 from typing import List, Tuple
@@ -27,22 +27,24 @@ def get() -> List[Site]:
                 street,
                 zipcode,
                 lat,
-                long
-            FROM coa_data.sites
+                `long`
+            FROM coa_data.site
             """
     with Accessor() as db_handle:
         db_handle.execute(query)
         return db_handle.fetchall()
 
 
-def add(site_name: str,
-        state: str,
-        county: str,
-        town: str,
-        street: str,
-        zipcode: str,
-        lat: float,
-        long_f: float) -> None:
+def add(
+    site_name: str,
+    state: str,
+    county: str,
+    town: str,
+    street: str,
+    zipcode: str,
+    lat: float,
+    long_f: float,
+) -> None:
     """
     Adds a site.
 
@@ -57,7 +59,7 @@ def add(site_name: str,
         long_f: The longitude of the site.
     """
     query = """
-            INSERT INTO coa_data.sites(
+            INSERT INTO coa_data.site(
                 site_name,
                 state,
                 county,
@@ -65,30 +67,27 @@ def add(site_name: str,
                 street,
                 zipcode,
                 lat,
-                long
+                `long`
             )
             VALUES(%s, %s, %s, %s, %s, %s, %s, %s)
             """
     with Accessor() as db_handle:
-        db_handle.execute(query, (site_name,
-                                  state,
-                                  county,
-                                  town,
-                                  street,
-                                  zipcode,
-                                  lat,
-                                  long_f))
+        db_handle.execute(
+            query, (site_name, state, county, town, street, zipcode, lat, long_f)
+        )
 
 
-def update(site_id: int,
-           site_name: str,
-           state: str,
-           county: str,
-           town: str,
-           street: str,
-           zipcode: str,
-           lat: float,
-           long_f: float) -> None:
+def update(
+    site_id: int,
+    site_name: str,
+    state: str,
+    county: str,
+    town: str,
+    street: str,
+    zipcode: str,
+    lat: float,
+    long_f: float,
+) -> None:
     """
     Updates a site.
 
@@ -104,7 +103,7 @@ def update(site_id: int,
         long_f: The longitude of the site.
     """
     query = """
-            UPDATE coa_data.sites
+            UPDATE coa_data.site
             SET
                 site_name = %s,
                 state = %s,
@@ -113,19 +112,14 @@ def update(site_id: int,
                 street = %s,
                 zipcode = %s,
                 lat = %s,
-                long = %s
+                `long` = %s
             WHERE site_id = %s
             """
     with Accessor() as db_handle:
-        db_handle.execute(query, (site_name,
-                                  state,
-                                  county,
-                                  town,
-                                  street,
-                                  zipcode,
-                                  lat,
-                                  long_f,
-                                  site_id))
+        db_handle.execute(
+            query,
+            (site_name, state, county, town, street, zipcode, lat, long_f, site_id),
+        )
 
 
 def remove(site_id: int) -> None:
@@ -136,7 +130,7 @@ def remove(site_id: int) -> None:
         site_id: The ID of the site.
     """
     query = """
-            DELETE FROM coa_data.sites
+            DELETE FROM coa_data.site
             WHERE site_id = %s
             """
     with Accessor() as db_handle:

@@ -1,9 +1,8 @@
 """
-A module handle the logic with the events table.
+A module handle the logic with the event table.
 """
 
-import datetime
-from datetime import date
+from datetime import datetime
 from typing import List, Tuple
 
 from coa_flask_app.db_accessor import Accessor
@@ -26,8 +25,8 @@ def get(volunteer_year: int, volunteer_season: str) -> List[Event]:
                 volunteer_cnt,
                 trashbag_cnt,
                 trash_weight,
-                walking_distance)
-            FROM coa_data.events AS cde
+                walking_distance
+            FROM coa_data.event AS cde
             WHERE
                 cde.volunteer_year = %s AND
                 cde.volunteer_season = %s
@@ -37,14 +36,16 @@ def get(volunteer_year: int, volunteer_season: str) -> List[Event]:
         return db_handle.fetchall()
 
 
-def add(updated_by: str,
-        site_id: int,
-        volunteer_year: int,
-        volunteer_season: str,
-        volunteer_cnt: int,
-        trashbag_cnt: int,
-        trash_weight: float,
-        walking_distance: float) -> None:
+def add(
+    updated_by: str,
+    site_id: int,
+    volunteer_year: int,
+    volunteer_season: str,
+    volunteer_cnt: int,
+    trashbag_cnt: int,
+    trash_weight: float,
+    walking_distance: float,
+) -> None:
     """
     Adds an item.
 
@@ -59,9 +60,9 @@ def add(updated_by: str,
         walking_distance: The total distance walked of the volunteers.
     """
     mon = 4 if volunteer_season == "Fall" else 10
-    volunteer_date = datetime.strptime(f"{volunteer_year}-{mon}", "%Y-%m")
+    volunteer_date = datetime.strptime(f"{volunteer_year}-{mon}", "%Y-%m").date()
     query = """
-            INSERT INTO coa_data.events(
+            INSERT INTO coa_data.event(
                 updated_by,
                 site_id,
                 volunteer_date,
@@ -73,24 +74,31 @@ def add(updated_by: str,
             VALUES(%s, %s, %s, %s, %s, %s, %s)
             """
     with Accessor() as db_handle:
-        db_handle.execute(query, (updated_by,
-                                  site_id,
-                                  volunteer_date,
-                                  volunteer_cnt,
-                                  trashbag_cnt,
-                                  trash_weight,
-                                  walking_distance))
+        db_handle.execute(
+            query,
+            (
+                updated_by,
+                site_id,
+                volunteer_date,
+                volunteer_cnt,
+                trashbag_cnt,
+                trash_weight,
+                walking_distance,
+            ),
+        )
 
 
-def update(event_id: int,
-           updated_by: str,
-           site_id: int,
-           volunteer_year: int,
-           volunteer_season: str,
-           volunteer_cnt: int,
-           trashbag_cnt: int,
-           trash_weight: float,
-           walking_distance: float) -> None:
+def update(
+    event_id: int,
+    updated_by: str,
+    site_id: int,
+    volunteer_year: int,
+    volunteer_season: str,
+    volunteer_cnt: int,
+    trashbag_cnt: int,
+    trash_weight: float,
+    walking_distance: float,
+) -> None:
     """
     Updates an event.
 
@@ -106,9 +114,9 @@ def update(event_id: int,
         walking_distance: The total distance walked of the volunteers.
     """
     mon = 4 if volunteer_season == "Fall" else 10
-    volunteer_date = datetime.strptime(f"{volunteer_year}-{mon}", "%Y-%m")
+    volunteer_date = datetime.strptime(f"{volunteer_year}-{mon}", "%Y-%m").date()
     query = """
-            UPDATE coa_data.events
+            UPDATE coa_data.event
             SET
                 updated_by = %s,
                 site_id = %s,
@@ -120,14 +128,19 @@ def update(event_id: int,
             WHERE item_id = %s
             """
     with Accessor() as db_handle:
-        db_handle.execute(query, (updated_by,
-                                  site_id,
-                                  volunteer_date,
-                                  volunteer_cnt,
-                                  trashbag_cnt,
-                                  trash_weight,
-                                  walking_distance,
-                                  event_id))
+        db_handle.execute(
+            query,
+            (
+                updated_by,
+                site_id,
+                volunteer_date,
+                volunteer_cnt,
+                trashbag_cnt,
+                trash_weight,
+                walking_distance,
+                event_id,
+            ),
+        )
 
 
 def remove(event_id: int) -> None:
@@ -138,7 +151,7 @@ def remove(event_id: int) -> None:
         event_id: The ID of the event.
     """
     query = """
-            DELETE FROM coa_data.events
+            DELETE FROM coa_data.event
             WHERE event_id = %s
             """
     with Accessor() as db_handle:

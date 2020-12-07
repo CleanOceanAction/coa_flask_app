@@ -1,4 +1,4 @@
-PYTHON     = python3.7 -m pipenv run
+PYTHON     = python3.8 -m pipenv run
 SRC_FILES := $(shell find . -name "*.py")
 
 .PHONY: help
@@ -21,15 +21,19 @@ help:
 install-deps:
 	$(PYTHON) pipenv install --dev
 
+.PHONY: update-deps
+update-deps: install-deps
+	$(PYTHON) pipenv lock --pre --clear
+
 .PHONY: check-fmt
 check-fmt:
 	@echo "Format Checking"
-	$(PYTHON) -m black --check .
+	$(PYTHON) black --check .
 
 .PHONY: fmt
 fmt:
 	@echo "Auto Formatting"
-	$(PYTHON) -m black .
+	$(PYTHON) black .
 
 .PHONY: lint
 lint:

@@ -3,7 +3,6 @@ The module designed to contain all the database access logic.
 """
 
 import os
-from typing import List
 
 import pymysql
 
@@ -19,11 +18,13 @@ class Accessor:
 
         We create a database connection to be used.
         """
-        self.connection = pymysql.connect(host=os.environ['DB_SERVER'],
-                                          user=os.environ['DB_USERNAME'],
-                                          password=os.environ['DB_PASSWORD'],
-                                          database=os.environ['DB_DATABASE'],
-                                          port=int(os.environ['DB_PORT']))
+        self.connection = pymysql.connect(
+            host=os.environ["DB_SERVER"],
+            user=os.environ["DB_USERNAME"],
+            password=os.environ["DB_PASSWORD"],
+            database=os.environ["DB_DATABASE"],
+            port=int(os.environ["DB_PORT"]),
+        )
         self.cursor = None
 
     def __enter__(self):
@@ -39,10 +40,7 @@ class Accessor:
         self.cursor = self.connection.cursor()
         return self.cursor
 
-    def __exit__(self,
-                 ex_type,
-                 ex_value,
-                 traceback) -> None:
+    def __exit__(self, ex_type, ex_value, traceback) -> None:
         """
         The exit of the Accessor class for a context manager.
 
@@ -60,18 +58,3 @@ class Accessor:
             self.cursor.close()
 
         self.connection.close()
-
-    def show_tables(self) -> List[str]:
-        """
-        Returns all the tables in the database.
-
-        This is mainly used as a test function to show how to use
-        the underlying API.
-
-        Returns:
-            The name of all the tables.
-        """
-        query = 'SHOW TABLES'
-        with self.connection as cursor:
-            cursor.execute(query)
-            return [columns[0] for columns in cursor.fetchall()]
