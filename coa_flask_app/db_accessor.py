@@ -37,7 +37,7 @@ class Accessor:
         Returns:
             A cursor to execute queries on.
         """
-        self.cursor = self.connection.cursor()
+        self.cursor = self.connection.cursor(pymysql.cursors.DictCursor)
         return self.cursor
 
     def __exit__(self, ex_type, ex_value, traceback) -> None:

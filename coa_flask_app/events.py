@@ -59,7 +59,7 @@ def add(
         trash_weight: The weight of the trashbags.
         walking_distance: The total distance walked of the volunteers.
     """
-    mon = 4 if volunteer_season == "Fall" else 10
+    mon = 4 if volunteer_season == "Spring" else 10
     volunteer_date = datetime.strptime(f"{volunteer_year}-{mon}", "%Y-%m").date()
     query = """
             INSERT INTO coa_data.event(
@@ -113,7 +113,7 @@ def update(
         trash_weight: The weight of the trashbags.
         walking_distance: The total distance walked of the volunteers.
     """
-    mon = 4 if volunteer_season == "Fall" else 10
+    mon = 4 if volunteer_season == "Spring" else 10
     volunteer_date = datetime.strptime(f"{volunteer_year}-{mon}", "%Y-%m").date()
     query = """
             UPDATE coa_data.event
