@@ -34,16 +34,10 @@ use the curl command.
 ```
 # Local
 curl localhost:5000/items
+curl --header "Content-Type: application/json" --request POST --data '{"username": "", "password": ""}' http://localhost:5000/login
+curl --header "Content-Type: application/json" -H "Authorization: Bearer ${TOKEN}" --request POST --data '{}' http://localhost:5000/events/add
+
 
 # Prod
 curl http://coa-flask-app-prod.us-east-1.elasticbeanstalk.com/items
 ```
-
-## Inspecting the Database
-
-1. Install MySQL Workbench [here](https://dev.mysql.com/downloads/workbench/)
-2. In MySQL Workbench click on 'MySQL Connections +' to add
-   a connection with AWS RDS.
-3. Enter the hostname, port, username, and password using the
-   same credentials mentioned in the `CONTRIBUTING.md`.
-4. From the 'Home' view, you can click on the connection to inspect the database.
