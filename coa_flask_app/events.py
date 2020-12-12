@@ -3,12 +3,22 @@ A module handle the logic with the event table.
 """
 
 from datetime import datetime
-from typing import List, Tuple
+from typing import List, TypedDict
 
 from coa_flask_app.db_accessor import Accessor
 
 
-Event = Tuple[int, int, int, int, float, float]
+Event = TypedDict(
+    "Event",
+    {
+        "event_id": int,
+        "site_id": int,
+        "volunteer_cnt": int,
+        "trashbag_cnt": int,
+        "trash_weight": float,
+        "walking_distance": float,
+    },
+)
 
 
 def get(volunteer_year: int, volunteer_season: str) -> List[Event]:

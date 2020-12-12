@@ -2,12 +2,20 @@
 A module handle the logic with the item table.
 """
 
-from typing import List, Tuple
+from typing import List, TypedDict
 
 from coa_flask_app.db_accessor import Accessor
 
 
-Item = Tuple[int, str, str, str]
+Item = TypedDict(
+    "Item",
+    {
+        "item_id": int,
+        "material": str,
+        "category": str,
+        "item_name": str,
+    },
+)
 
 
 def get() -> List[Item]:

@@ -2,12 +2,25 @@
 A module handle the logic with the site table.
 """
 
-from typing import List, Tuple
+from typing import List, TypedDict
 
 from coa_flask_app.db_accessor import Accessor
 
 
-Site = Tuple[int, str, str, str, str, str, str, float, float]
+Site = TypedDict(
+    "Site",
+    {
+        "site_id": int,
+        "site_name": str,
+        "state": str,
+        "county": str,
+        "town": str,
+        "street": str,
+        "zipcode": str,
+        "lat": float,
+        "long": float,
+    },
+)
 
 
 def get() -> List[Site]:
@@ -32,7 +45,20 @@ def get() -> List[Site]:
             """
     with Accessor() as db_handle:
         db_handle.execute(query)
-        return db_handle.fetchall()
+        return [
+            {
+                "site_id": record["site_id"],
+                "site_name": record["site_name"],
+                "state": record["state"],
+                "county": record["county"],
+                "town": record["town"],
+                "street": record["street"],
+                "zipcode": record["zipcode"],
+                "lat": None if record["lat"] is None else float(record["lat"]),
+                "long": None if record["long"] is None else float(record["long"]),
+            }
+            for record in db_handle.fetchall()
+        ]
 
 
 def add(

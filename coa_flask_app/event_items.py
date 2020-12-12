@@ -2,12 +2,21 @@
 A module handle the logic with the items table.
 """
 
-from typing import List, Tuple
+from typing import List, TypedDict
 
 from coa_flask_app.db_accessor import Accessor
 
 
-EventItem = Tuple[int, int, int, int, str]
+EventItem = TypedDict(
+    "EventItem",
+    {
+        "record_id": int,
+        "event_id": int,
+        "item_id": int,
+        "quantity": int,
+        "updated_by": str,
+    },
+)
 
 
 def get(event_id: int) -> List[EventItem]:
