@@ -1,5 +1,6 @@
 PYTHON     = python3.8 -m pipenv run
 SRC_FILES := $(shell find . -name "*.py")
+LOCK       = Pipfile.lock
 
 .PHONY: help
 help:
@@ -21,9 +22,14 @@ help:
 install-deps:
 	$(PYTHON) pipenv install --dev
 
-.PHONY: update-deps
-update-deps: install-deps
+$(LOCK):
 	$(PYTHON) pipenv lock --pre --clear
+	make install-deps
+
+.PHONY: update-deps
+update-deps:
+	rm $(LOCK)
+	make $(LOCK)
 
 .PHONY: check-fmt
 check-fmt:
