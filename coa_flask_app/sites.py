@@ -2,7 +2,7 @@
 A module handle the logic with the site table.
 """
 
-from typing import List, TypedDict
+from typing import List, Optional, TypedDict
 
 from coa_flask_app.db_accessor import Accessor
 
@@ -17,8 +17,8 @@ Site = TypedDict(
         "town": str,
         "street": str,
         "zipcode": str,
-        "lat": float,
-        "long": float,
+        "lat": Optional[float],
+        "long": Optional[float],
     },
 )
 
