@@ -62,7 +62,7 @@ prod-build:
 
 .PHONY: prod-run
 prod-run: prod-build
-	docker run -p 5000:80 -e DB_USERNAME -e DB_PASSWORD -e DB_SERVER -e DB_DATABASE -e DB_PORT coa-back-end
+	docker run -p 5000:80 -e DB_USERNAME -e DB_PASSWORD -e DB_SERVER -e DB_DATABASE -e DB_PORT -e SECRET_KEY coa-back-end
 
 .PHONY:
 clean:
