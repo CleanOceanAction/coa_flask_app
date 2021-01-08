@@ -5,9 +5,9 @@ This includes the setting up of flask as well as all of the routes for
 the application.
 """
 
+import json
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import json
 
 from coa_flask_app import auth, items, sites, events, event_items
 
