@@ -7,6 +7,7 @@ the application.
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import json
 
 from coa_flask_app import auth, items, sites, events, event_items
 
@@ -40,7 +41,7 @@ def login():
     Returns:
         A JWT to be used for further authentication.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     username = args["username"]
     password = args["password"]
 
@@ -69,7 +70,7 @@ def add_item():
         category  - The name of the category.
         item_name - The name of the item.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     material = args["material"]
     category = args["category"]
     item_name = args["item_name"]
@@ -90,7 +91,7 @@ def update_item():
         category  - The name of the category.
         item_name - The name of the item.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     item_id = args["item_id"]
     material = args["material"]
     category = args["category"]
@@ -109,7 +110,7 @@ def remove_item():
     The app route itself contains:
         item_id - The ID of the item to remove.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     item_id = args["item_id"]
 
     items.remove(item_id)
@@ -143,7 +144,7 @@ def add_site():
         lat       - The latitude of the site.
         long      - The longitude of the site.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     site_name = args["site_name"]
     state = args["state"]
     county = args["county"]
@@ -174,7 +175,7 @@ def update_site():
         lat       - The latitude of the site.
         long      - The longitude of the site.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     site_id = args["site_id"]
     site_name = args["site_name"]
     state = args["state"]
@@ -198,7 +199,7 @@ def remove_site():
     The app route itself contains:
         site_id - The ID of the site to remove.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     site_id = args["site_id"]
 
     sites.remove(site_id)
@@ -239,7 +240,7 @@ def add_event():
         trash_weight     - The weight of the trashbags.
         walking_distance - The total distance walked of the volunteers.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     updated_by = args["updated_by"]
     site_id = args["site_id"]
     volunteer_year = args["volunteer_year"]
@@ -279,7 +280,7 @@ def update_event():
         trash_weight     - The weight of the trashbags.
         walking_distance - The total distance walked of the volunteers.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     event_id = args["event_id"]
     updated_by = args["updated_by"]
     site_id = args["site_id"]
@@ -313,7 +314,7 @@ def remove_event():
     The app route itself contains:
         event_id - The ID of the event to remove.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     event_id = args["event_id"]
 
     events.remove(event_id)
@@ -348,7 +349,7 @@ def add_event_item():
         quantity   - The quantity of the item collected.
         updated_by - The user making the update.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     event_id = args["event_id"]
     item_id = args["item_id"]
     quantity = args["quantity"]
@@ -371,7 +372,7 @@ def update_event_item():
         quantity   - The quantity of the item collected.
         updated_by - The user making the update.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     record_id = args["record_id"]
     event_id = args["event_id"]
     item_id = args["item_id"]
@@ -391,7 +392,7 @@ def remove_event_item():
     The app route itself contains:
         record_id - The ID of the event item to remove.
     """
-    args = request.json
+    args = json.loads(request.data.decode())
     record_id = args["record_id"]
 
     event_items.remove(record_id)
