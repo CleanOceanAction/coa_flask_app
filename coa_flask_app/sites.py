@@ -15,8 +15,8 @@ Site = TypedDict(
         "state": str,
         "county": str,
         "town": str,
-        "street": str,
-        "zipcode": str,
+        "street": Optional[str],
+        "zipcode": Optional[str],
         "lat": Optional[float],
         "long": Optional[float],
     },
@@ -66,10 +66,10 @@ def add(
     state: str,
     county: str,
     town: str,
-    street: str,
-    zipcode: str,
-    lat: float,
-    long_f: float,
+    street: Optional[str],
+    zipcode: Optional[str],
+    lat: Optional[float],
+    long_f: Optional[float],
 ) -> None:
     """
     Adds a site.
@@ -109,10 +109,10 @@ def update(
     state: str,
     county: str,
     town: str,
-    street: str,
-    zipcode: str,
-    lat: float,
-    long_f: float,
+    street: Optional[str],
+    zipcode: Optional[str],
+    lat: Optional[float],
+    long_f: Optional[float],
 ) -> None:
     """
     Updates a site.
