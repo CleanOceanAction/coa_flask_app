@@ -14,6 +14,7 @@ Event = TypedDict(
         "event_id": int,
         "site_id": int,
         "volunteer_cnt": Optional[int],
+        "trash_items_cnt": int,
         "trashbag_cnt": Optional[int],
         "trash_weight": Optional[float],
         "walking_distance": Optional[float],
@@ -30,16 +31,19 @@ def get(volunteer_year: int, volunteer_season: str) -> List[Event]:
     """
     query = """
             SELECT
-                event_id,
-                site_id,
-                volunteer_cnt,
-                trashbag_cnt,
-                trash_weight,
-                walking_distance
+                cde.event_id,
+                cde.site_id,
+                cde.volunteer_cnt,
+                SUM(cei.quantity) AS trash_items_cnt,
+                cde.trashbag_cnt,
+                cde.trash_weight,
+                cde.walking_distance
             FROM coa_data.event AS cde
+            JOIN coa_data.event_items AS cei ON cei.event_id = cde.event_id
             WHERE
                 cde.volunteer_year = %s AND
                 cde.volunteer_season = %s
+            GROUP BY cde.event_id
             """
     with Accessor() as db_handle:
         db_handle.execute(query, (volunteer_year, volunteer_season))
