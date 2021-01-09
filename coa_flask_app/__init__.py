@@ -150,10 +150,10 @@ def add_site():
     state = args["state"]
     county = args["county"]
     town = args["town"]
-    street = args["street"]
-    zipcode = args["zipcode"]
-    lat = args["lat"]
-    long_f = args["long"]
+    street = args.get("street")
+    zipcode = args.get("zipcode")
+    lat = args.get("lat")
+    long_f = args.get("long")
 
     sites.add(site_name, state, county, town, street, zipcode, lat, long_f)
     return jsonify()
@@ -182,10 +182,10 @@ def update_site():
     state = args["state"]
     county = args["county"]
     town = args["town"]
-    street = args["street"]
-    zipcode = args["zipcode"]
-    lat = args["lat"]
-    long_f = args["long"]
+    street = args.get("street")
+    zipcode = args.get("zipcode")
+    lat = args.get("lat")
+    long_f = args.get("long")
 
     sites.update(site_id, site_name, state, county, town, street, zipcode, lat, long_f)
     return jsonify()
@@ -246,10 +246,10 @@ def add_event():
     site_id = args["site_id"]
     volunteer_year = args["volunteer_year"]
     volunteer_season = args["volunteer_season"]
-    volunteer_cnt = args["volunteer_cnt"]
-    trashbag_cnt = args["trashbag_cnt"]
-    trash_weight = args["trash_weight"]
-    walking_distance = args["walking_distance"]
+    volunteer_cnt = args.get("volunteer_cnt")
+    trashbag_cnt = args.get("trashbag_cnt")
+    trash_weight = args.get("trash_weight")
+    walking_distance = args.get("walking_distance")
 
     events.add(
         updated_by,
@@ -287,10 +287,10 @@ def update_event():
     site_id = args["site_id"]
     volunteer_year = args["volunteer_year"]
     volunteer_season = args["volunteer_season"]
-    volunteer_cnt = args["volunteer_cnt"]
-    trashbag_cnt = args["trashbag_cnt"]
-    trash_weight = args["trash_weight"]
-    walking_distance = args["walking_distance"]
+    volunteer_cnt = args.get("volunteer_cnt")
+    trashbag_cnt = args.get("trashbag_cnt")
+    trash_weight = args.get("trash_weight")
+    walking_distance = args.get("walking_distance")
 
     events.update(
         event_id,

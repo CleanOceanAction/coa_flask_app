@@ -3,7 +3,7 @@ A module handle the logic with the event table.
 """
 
 from datetime import datetime
-from typing import List, TypedDict
+from typing import List, Optional, TypedDict
 
 from coa_flask_app.db_accessor import Accessor
 
@@ -13,10 +13,10 @@ Event = TypedDict(
     {
         "event_id": int,
         "site_id": int,
-        "volunteer_cnt": int,
-        "trashbag_cnt": int,
-        "trash_weight": float,
-        "walking_distance": float,
+        "volunteer_cnt": Optional[int],
+        "trashbag_cnt": Optional[int],
+        "trash_weight": Optional[float],
+        "walking_distance": Optional[float],
     },
 )
 
@@ -51,10 +51,10 @@ def add(
     site_id: int,
     volunteer_year: int,
     volunteer_season: str,
-    volunteer_cnt: int,
-    trashbag_cnt: int,
-    trash_weight: float,
-    walking_distance: float,
+    volunteer_cnt: Optional[int],
+    trashbag_cnt: Optional[int],
+    trash_weight: Optional[float],
+    walking_distance: Optional[float],
 ) -> None:
     """
     Adds an item.
@@ -104,10 +104,10 @@ def update(
     site_id: int,
     volunteer_year: int,
     volunteer_season: str,
-    volunteer_cnt: int,
-    trashbag_cnt: int,
-    trash_weight: float,
-    walking_distance: float,
+    volunteer_cnt: Optional[int],
+    trashbag_cnt: Optional[int],
+    trash_weight: Optional[float],
+    walking_distance: Optional[float],
 ) -> None:
     """
     Updates an event.
