@@ -34,12 +34,12 @@ def get(volunteer_year: int, volunteer_season: str) -> List[Event]:
                 cde.event_id,
                 cde.site_id,
                 cde.volunteer_cnt,
-                SUM(cei.quantity) AS trash_items_cnt,
+                IFNULL(SUM(cei.quantity), 0) AS trash_items_cnt,
                 cde.trashbag_cnt,
                 cde.trash_weight,
                 cde.walking_distance
             FROM coa_data.event AS cde
-            JOIN coa_data.event_items AS cei ON cei.event_id = cde.event_id
+            LEFT JOIN coa_data.event_items AS cei ON cei.event_id = cde.event_id
             WHERE
                 cde.volunteer_year = %s AND
                 cde.volunteer_season = %s
