@@ -47,7 +47,18 @@ def get(volunteer_year: int, volunteer_season: str) -> List[Event]:
             """
     with Accessor() as db_handle:
         db_handle.execute(query, (volunteer_year, volunteer_season))
-        return db_handle.fetchall()
+        return [
+            {
+                "event_id": record["event_id"],
+                "site_id": record["site_id"],
+                "volunteer_cnt": record["volunteer_cnt"],
+                "trash_items_cnt": int(record["trash_items_cnt"]),
+                "trashbag_cnt": record["trashbag_cnt"],
+                "trash_weight": record["trash_weight"],
+                "walking_distance": record["walking_distance"],
+            }
+            for record in db_handle.fetchall()
+        ]
 
 
 def add(

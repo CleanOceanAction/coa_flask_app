@@ -61,7 +61,7 @@ def get_items():
 
 
 @APP.route("/items/add", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def add_item():
     """
     The add items route adds an item.
@@ -81,7 +81,7 @@ def add_item():
 
 
 @APP.route("/items/update", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def update_item():
     """
     The update items route updates an existing item.
@@ -103,7 +103,7 @@ def update_item():
 
 
 @APP.route("/items/remove", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def remove_item():
     """
     The remove items route removes an existing item.
@@ -130,7 +130,7 @@ def get_sites():
 
 
 @APP.route("/sites/add", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def add_site():
     """
     The add sites route adds an site.
@@ -160,7 +160,7 @@ def add_site():
 
 
 @APP.route("/sites/update", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def update_site():
     """
     The update sites route updates an existing site.
@@ -192,7 +192,7 @@ def update_site():
 
 
 @APP.route("/sites/remove", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def remove_site():
     """
     The remove sites route removes an existing site.
@@ -226,7 +226,7 @@ def get_events():
 
 
 @APP.route("/events/add", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def add_event():
     """
     The add events route adds an event.
@@ -265,7 +265,7 @@ def add_event():
 
 
 @APP.route("/events/update", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def update_event():
     """
     The update events route updates an existing event.
@@ -307,7 +307,7 @@ def update_event():
 
 
 @APP.route("/events/remove", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def remove_event():
     """
     The remove events route removes an existing event.
@@ -339,7 +339,7 @@ def get_event_items():
 
 
 @APP.route("/event-items/add", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def add_event_item():
     """
     The add event items route adds an event.
@@ -361,7 +361,7 @@ def add_event_item():
 
 
 @APP.route("/event-items/update", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def update_event_item():
     """
     The update event items route updates an existing event item.
@@ -385,7 +385,7 @@ def update_event_item():
 
 
 @APP.route("/event-items/remove", methods=["POST"])
-#@auth.verify_token
+# @auth.verify_token
 def remove_event_item():
     """
     The remove event items route removes an existing event item.
