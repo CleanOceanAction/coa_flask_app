@@ -34,6 +34,7 @@ use the curl command.
 ```
 # Local
 curl localhost:5000/items
+curl "localhost:5000/events?volunteer_year=2020&volunteer_season=Fall"
 curl --header "Content-Type: application/json" --request POST --data '{"username": "", "password": ""}' http://localhost:5000/login
 curl --header "Content-Type: application/json" -H "Authorization: Bearer ${TOKEN}" --request POST --data '{}' http://localhost:5000/events/add
 
