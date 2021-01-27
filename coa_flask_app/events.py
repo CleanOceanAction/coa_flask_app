@@ -150,7 +150,7 @@ def update(
                 trashbag_cnt = %s,
                 trash_weight = %s,
                 walking_distance = %s
-            WHERE item_id = %s
+            WHERE event_id = %s
             """
     with Accessor() as db_handle:
         db_handle.execute(
