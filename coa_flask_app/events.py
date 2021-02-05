@@ -15,7 +15,7 @@ Event = TypedDict(
         "site_id": int,
         "volunteer_cnt": Optional[int],
         "trash_items_cnt": int,
-        "trashbag_cnt": Optional[int],
+        "trashbag_cnt": Optional[float],
         "trash_weight": Optional[float],
         "walking_distance": Optional[float],
     },
@@ -67,7 +67,7 @@ def add(
     volunteer_year: int,
     volunteer_season: str,
     volunteer_cnt: Optional[int],
-    trashbag_cnt: Optional[int],
+    trashbag_cnt: Optional[float],
     trash_weight: Optional[float],
     walking_distance: Optional[float],
 ) -> None:
@@ -120,7 +120,7 @@ def update(
     volunteer_year: int,
     volunteer_season: str,
     volunteer_cnt: Optional[int],
-    trashbag_cnt: Optional[int],
+    trashbag_cnt: Optional[float],
     trash_weight: Optional[float],
     walking_distance: Optional[float],
 ) -> None:
