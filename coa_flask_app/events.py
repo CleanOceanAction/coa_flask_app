@@ -18,6 +18,8 @@ Event = TypedDict(
         "trashbag_cnt": Optional[float],
         "trash_weight": Optional[float],
         "walking_distance": Optional[float],
+        "updated_by": str,
+        "updated_tsp": datetime,
     },
 )
 
@@ -37,7 +39,9 @@ def get(volunteer_year: int, volunteer_season: str) -> List[Event]:
                 IFNULL(SUM(cei.quantity), 0) AS trash_items_cnt,
                 cde.trashbag_cnt,
                 cde.trash_weight,
-                cde.walking_distance
+                cde.walking_distance,
+                cde.updated_by,
+                cde.updated_tsp
             FROM coa_data.event AS cde
             LEFT JOIN coa_data.event_items AS cei ON cei.event_id = cde.event_id
             WHERE
@@ -56,6 +60,8 @@ def get(volunteer_year: int, volunteer_season: str) -> List[Event]:
                 "trashbag_cnt": record["trashbag_cnt"],
                 "trash_weight": record["trash_weight"],
                 "walking_distance": record["walking_distance"],
+                "updated_by": record["updated_by"],
+                "updated_tsp": record["updated_tsp"].strftime("%Y-%m-%d %H:%M"),
             }
             for record in db_handle.fetchall()
         ]
