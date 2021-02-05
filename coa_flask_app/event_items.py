@@ -2,6 +2,7 @@
 A module handle the logic with the items table.
 """
 
+from datetime import datetime
 from typing import List, TypedDict
 
 from coa_flask_app.db_accessor import Accessor
@@ -15,6 +16,7 @@ EventItem = TypedDict(
         "item_id": int,
         "quantity": int,
         "updated_by": str,
+        "updated_tsp": datetime,
     },
 )
 
@@ -35,13 +37,24 @@ def get(event_id: int) -> List[EventItem]:
                 event_id,
                 item_id,
                 quantity,
-                updated_by
+                updated_by,
+                updated_tsp
             FROM coa_data.event_items AS cdei
             WHERE cdei.event_id = %s
             """
     with Accessor() as db_handle:
         db_handle.execute(query, (event_id,))
-        return db_handle.fetchall()
+        return [
+            {
+                "record_id": record["record_id"],
+                "event_id": record["event_id"],
+                "item_id": record["item_id"],
+                "quantity": record["quantity"],
+                "updated_by": record["updated_by"],
+                "updated_tsp": record["updated_tsp"].strftime("%Y-%m-%d %H:%M"),
+            }
+            for record in db_handle.fetchall()
+        ]
 
 
 def add(event_id: int, item_id: int, quantity: int, updated_by: str) -> None:
