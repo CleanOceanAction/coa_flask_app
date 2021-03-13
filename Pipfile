@@ -13,6 +13,7 @@ pytest-cov = "*"
 [packages]
 flask = "*"
 flask-cors = "*"
+geopy = "*"
 pyjwt = "*"
 pymysql = "*"
 uwsgi = "*"
