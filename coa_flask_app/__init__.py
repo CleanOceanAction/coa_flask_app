@@ -207,6 +207,20 @@ def remove_site():
     return jsonify()
 
 
+@APP.route("/sites/reverse")
+def reverse_site():
+    """
+    Does a reverse site lookup from a lat / long.
+
+    The app route itself contains:
+        record_id - The ID of the event item to remove.
+    """
+    lat = request.args.get("lat", type=float)
+    long_f = request.args.get("long", type=float)
+
+    return jsonify(site=sites.reverse(lat, long_f))
+
+
 @APP.route("/events")
 def get_events():
     """

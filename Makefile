@@ -53,7 +53,7 @@ test:
 	 $(PYTHON) pytest tests
 
 .PHONY: run
-run:
+run: $(LOCK)
 	FLASK_APP=coa_flask_app FLASK_ENV=development $(PYTHON) flask run
 
 .PHONY: prod-build
@@ -72,4 +72,4 @@ clean:
 .PHONY: clean-full
 clean-full: clean
 	@echo "Removing virtual environment"
-	@pipenv --rm clean
+	@pipenv --rm

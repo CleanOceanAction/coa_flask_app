@@ -4,6 +4,8 @@ A module handle the logic with the site table.
 
 from typing import List, Optional, TypedDict
 
+from geopy.geocoders import Nominatim
+
 from coa_flask_app.db_accessor import Accessor
 
 
@@ -19,6 +21,17 @@ Site = TypedDict(
         "zipcode": Optional[str],
         "lat": Optional[float],
         "long": Optional[float],
+    },
+)
+
+GuessSite = TypedDict(
+    "GuessSite",
+    {
+        "site_name": str,
+        "county": str,
+        "town": str,
+        "street": str,
+        "zipcode": str,
     },
 )
 
@@ -161,3 +174,26 @@ def remove(site_id: int) -> None:
             """
     with Accessor() as db_handle:
         db_handle.execute(query, (site_id,))
+
+
+def reverse(lat: float, long_f: float) -> GuessSite:
+    """
+    Does a reverse geo lookup for a lat / long.
+
+    Args:
+        lat: The latitude to lookup.
+        long_f: The longitude to lookup.
+
+    Returns:
+        Details of the closest matching site.
+    """
+    geolocator = Nominatim(user_agent="coa_flask_app")
+    location = geolocator.reverse(f"{lat}, {long_f}", exactly_one=True)
+    address = location.raw["address"]
+    return {
+        "site_name": address["amenity"],
+        "county": address["county"],
+        "town": address["city"],
+        "street": address["road"],
+        "zipcode": address["postcode"],
+    }
